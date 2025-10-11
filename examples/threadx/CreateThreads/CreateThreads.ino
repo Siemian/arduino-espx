@@ -10,11 +10,10 @@ TaskHandle_t handle;
 
 
 void setup() {
-  delay(2000);
+  delay(1000);
   Serial.begin(115200);
   Serial.setTimeout(4000);
   Serial.println("Threadx example: create threads");
-  delay(2000);
 
   // create an "anonymous" thread
   // with default config

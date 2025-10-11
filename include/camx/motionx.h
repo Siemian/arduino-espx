@@ -1,9 +1,9 @@
 #pragma once
-#include "./math.h"
-#include "./Str.h"
-#include "./ByteArray.h"
-#include "./Throttle.h"
-#include "./camx/jdecoder.h"
+#include "../math.h"
+#include "../Str.h"
+#include "../ByteArray.h"
+#include "../Throttle.h"
+#include "jdecoder.h"
 
 using espx::Throttle;
 using espx::camx::Jdecoder;
@@ -206,6 +206,7 @@ protected:
      *
      */
     void onDecodeSuccess() {
+        stopwatch.stop();
         state.epoch += 1;
     }
 
@@ -236,4 +237,4 @@ protected:
 };
 
 // singleton
-Motionx motionx;
+static Motionx motionx;

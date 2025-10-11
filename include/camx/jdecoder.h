@@ -114,7 +114,6 @@ namespace espx::camx {
             else {
                 status.succeed();
                 onDecodeSuccess();
-                stopwatch.stop();
             }
 
             return status;
@@ -163,35 +162,47 @@ namespace espx::camx {
          * (can be overriden by children)
          */
         virtual bool handleMCU(JPEGDRAW *mcu) {
-            static ByteArray rowbuffer;
+            const uint16_t xStart = mcu->x;
+
+            if (mcu->iWidthUsed == 0)
+                return true;
 
             for (float i = 0; i < mcu->iHeight; i += jconfig.stride) {
-                const float y = mcu->y + i;
-                const uint16_t rowIndex = y / jconfig.stride;
+                const uint16_t rowIndex = (mcu->y + i) / jconfig.stride;
 
                 if (exitAtRow(rowIndex))
-                    return 0;
+                    return false;
 
                 const size_t offset = ((size_t) i) * mcu->iWidthUsed;
-                const uint8_t *row = ((uint8_t*) mcu->pPixels) + offset;
-                size_t w = 0;
 
-                rowbuffer.resize(mcu->iWidthUsed / jconfig.stride);
+                // grayscale
+                if (mcu->iBpp == 8) {
+                    const uint8_t *row = ((uint8_t*) mcu->pPixels) + offset;
 
-                // copy pixels to buffer (accouting for stride)
-                for (float j = 0; j < mcu->iWidthUsed; j += jconfig.stride, w++) {
-                    const float x = mcu->x + j;
-                    const uint8_t pixel = row[cast<size_t>(j)];
+                    if (handleRowGray(rowIndex, mcu->iWidthUsed, row))
+                        continue;
 
-                    rowbuffer.set(w, pixel);
+                    for (float j = 0; j < mcu->iWidthUsed; j += jconfig.stride) {
+                        const uint16_t x = xStart + j;
+                        const uint8_t pixel = row[cast<size_t>(j)];
+
+                        handlePixel(rowIndex, x, pixel);
+                    }
                 }
+                else {
+                    // rgb
+                    const uint16_t *row = ((uint16_t*) mcu->pPixels) + offset;
 
-                if (!handleRow(rowIndex, &rowbuffer, mcu->x, mcu->x + w))
-                    return 0;
+                    if (handleRowColor(rowIndex, mcu->iWidthUsed, row))
+                        continue;
 
-                // TODO: handle the case of color JPEG
-                for (uint16_t j = 0; j < rowbuffer.size; j++)
-                    handlePixel(rowIndex, mcu->x + j, rowbuffer(j));
+                    for (float j = 0; j < mcu->iWidthUsed; j += jconfig.stride) {
+                        const uint16_t x = xStart + j;
+                        const uint16_t pixel = row[cast<size_t>(j)];
+
+                        handlePixel(rowIndex, x, pixel);
+                    }
+                }
           }
 
           return 1;
@@ -205,11 +216,17 @@ namespace espx::camx {
         }
 
         /**
-         * Process row.
-         * Early exit if returns false.
+         * Process entire row
          */
-        virtual bool handleRow(uint16_t y, ByteArray *data, uint16_t xstart, uint16_t xend) {
-            return true;
+        virtual bool handleRowGray(uint16_t y, uint16_t width, const uint8_t *row) {
+            return false;
+        }
+
+        /**
+         * Process entire row
+         */
+        virtual bool handleRowColor(uint16_t y, uint16_t width, const uint16_t *row) {
+            return false;
         }
 
         /**
@@ -235,12 +252,14 @@ namespace espx::camx {
          * Called if open succeeded
          */
         virtual void onDecodeSuccess() {
+            stopwatch.stop();
         }
 
         /**
          * Called if open failed
          */
         virtual void onDecodeError() {
+            stopwatch.stop();
         }
 
     private:

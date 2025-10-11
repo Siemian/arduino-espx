@@ -4,7 +4,7 @@
 #include <JPEGDEC.h>
 #include <espx.h>
 #include <espx/camx.h>
-#include <espx/motionx.h>
+#include <espx/camx/motionx.h>
 
 
 void setup() {
