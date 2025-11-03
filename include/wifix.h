@@ -4,7 +4,7 @@
 #include "./OpStatus.h"
 
 // keep track of WiFi connection failure reason
-String wifixFailureReason("");
+static String wifixFailureReason("");
 
 /**
  * Configure WiFi connection
