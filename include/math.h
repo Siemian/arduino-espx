@@ -8,7 +8,7 @@ namespace math {
      * @param b
      * @return
      */
-    float absdiff(float a, float b) {
+    inline float absdiff(float a, float b) {
         return a > b ? a - b : b - a;
     }
 }

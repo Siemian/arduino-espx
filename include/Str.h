@@ -327,7 +327,7 @@ protected:
  * Str factory
  * @return
  */
-Str str() {
+inline Str str() {
     return Str("");
 }
 
