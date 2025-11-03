@@ -24,306 +24,152 @@ typedef struct {
 const uint8_t CAMX_MODELS_COUNT = 11;
 
 const CamxModel CAMX_MODELS[CAMX_MODELS_COUNT] = {
-        {
-                .name = "AiThinker",
-                .alias = "aithinker",
-                .d0 = 5,
-                .d1 = 18,
-                .d2 = 19,
-                .d3 = 21,
-                .d4 = 36,
-                .d5 = 39,
-                .d6 = 34,
-                .d7 = 35,
-                .xclk = 0,
-                .pclk = 22,
-                .vsync = 25,
-                .href = 23,
-                .sccb_sda = 26,
-                .sccb_scl = 27,
-                .pwdn = 32,
-                .reset = -1,
-        },
-        {
-                .name = "XIAO",
-                .alias = "xiao",
-                .d0 = 15,
-                .d1 = 17,
-                .d2 = 18,
-                .d3 = 16,
-                .d4 = 14,
-                .d5 = 12,
-                .d6 = 11,
-                .d7 = 48,
-                .xclk = 10,
-                .pclk = 13,
-                .vsync = 38,
-                .href = 47,
-                .sccb_sda = 40,
-                .sccb_scl = 39,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "M5",
-                .alias = "m5",
-                .d0 = 32,
-                .d1 = 35,
-                .d2 = 34,
-                .d3 = 5,
-                .d4 = 39,
-                .d5 = 18,
-                .d6 = 36,
-                .d7 = 19,
-                .xclk = 27,
-                .pclk = 21,
-                .vsync = 22,
-                .href = 26,
-                .sccb_sda = 25,
-                .sccb_scl = 23,
-                .pwdn = -1,
-                .reset = 15,
-        },
-        {
-                .name = "M5 Fish Eye",
-                .alias = "m5fisheye",
-                .d0 = 32,
-                .d1 = 35,
-                .d2 = 34,
-                .d3 = 5,
-                .d4 = 39,
-                .d5 = 18,
-                .d6 = 36,
-                .d7 = 19,
-                .xclk = 27,
-                .pclk = 21,
-                .vsync = 25,
-                .href = 26,
-                .sccb_sda = 22,
-                .sccb_scl = 23,
-                .pwdn = -1,
-                .reset = 15,
-        },
-        {
-                .name = "M5 Timer X",
-                .alias = "m5timerx",
-                .d0 = 32,
-                .d1 = 35,
-                .d2 = 34,
-                .d3 = 5,
-                .d4 = 39,
-                .d5 = 18,
-                .d6 = 36,
-                .d7 = 19,
-                .xclk = 27,
-                .pclk = 21,
-                .vsync = 22,
-                .href = 26,
-                .sccb_sda = 25,
-                .sccb_scl = 23,
-                .pwdn = -1,
-                .reset = 15,
-        },
-        {
-                .name = "ESP - EYE",
-                .alias = "espeye",
-                .d0 = 34,
-                .d1 = 13,
-                .d2 = 14,
-                .d3 = 35,
-                .d4 = 39,
-                .d5 = 38,
-                .d6 = 37,
-                .d7 = 36,
-                .xclk = 4,
-                .pclk = 25,
-                .vsync = 5,
-                .href = 27,
-                .sccb_sda = 18,
-                .sccb_scl = 23,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "ESP - EYE S3",
-                .alias = "espeyes3",
-                .d0 = 11,
-                .d1 = 9,
-                .d2 = 8,
-                .d3 = 10,
-                .d4 = 12,
-                .d5 = 18,
-                .d6 = 17,
-                .d7 = 16,
-                .xclk = 15,
-                .pclk = 13,
-                .vsync = 6,
-                .href = 7,
-                .sccb_sda = 4,
-                .sccb_scl = 5,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "WROVER",
-                .alias = "wrover",
-                .d0 = 4,
-                .d1 = 5,
-                .d2 = 18,
-                .d3 = 19,
-                .d4 = 36,
-                .d5 = 39,
-                .d6 = 34,
-                .d7 = 35,
-                .xclk = 21,
-                .pclk = 22,
-                .vsync = 25,
-                .href = 23,
-                .sccb_sda = 26,
-                .sccb_scl = 27,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "WROOM S3",
-                .alias = "wrooms3",
-                .d0 = 11,
-                .d1 = 9,
-                .d2 = 8,
-                .d3 = 10,
-                .d4 = 12,
-                .d5 = 18,
-                .d6 = 17,
-                .d7 = 16,
-                .xclk = 15,
-                .pclk = 13,
-                .vsync = 6,
-                .href = 7,
-                .sccb_sda = 4,
-                .sccb_scl = 5,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "TTGO Plus",
-                .alias = "ttgoplus",
-                .d0 = 34,
-                .d1 = 13,
-                .d2 = 26,
-                .d3 = 35,
-                .d4 = 39,
-                .d5 = 38,
-                .d6 = 37,
-                .d7 = 36,
-                .xclk = 4,
-                .pclk = 25,
-                .vsync = 5,
-                .href = 27,
-                .sccb_sda = 18,
-                .sccb_scl = 23,
-                .pwdn = -1,
-                .reset = -1,
-        },
-        {
-                .name = "TTGO PIR",
-                .alias = "ttgopir",
-                .d0 = 5,
-                .d1 = 14,
-                .d2 = 4,
-                .d3 = 15,
-                .d4 = 18,
-                .d5 = 23,
-                .d6 = 36,
-                .d7 = 39,
-                .xclk = 32,
-                .pclk = 19,
-                .vsync = 27,
-                .href = 25,
-                .sccb_sda = 13,
-                .sccb_scl = 12,
-                .pwdn = 26,
-                .reset = -1,
-        }
+    {
+        "AiThinker",
+        "aithinker",
+        5, 18, 19, 21, 36, 39, 34, 35,
+        0, 22, 25, 23, 26, 27, 32, -1
+    },
+    {
+        "XIAO",
+        "xiao",
+        15, 17, 18, 16, 14, 12, 11, 48,
+        10, 13, 38, 47, 40, 39, -1, -1
+    },
+    {
+        "M5",
+        "m5",
+        32, 35, 34, 5, 39, 18, 36, 19,
+        27, 21, 22, 26, 25, 23, -1, 15
+    },
+    {
+        "M5 Fish Eye",
+        "m5fisheye",
+        32, 35, 34, 5, 39, 18, 36, 19,
+        27, 21, 25, 26, 22, 23, -1, 15
+    },
+    {
+        "M5 Timer X",
+        "m5timerx",
+        32, 35, 34, 5, 39, 18, 36, 19,
+        27, 21, 22, 26, 25, 23, -1, 15
+    },
+    {
+        "ESP - EYE",
+        "espeye",
+        34, 13, 14, 35, 39, 38, 37, 36,
+        4, 25, 5, 27, 18, 23, -1, -1
+    },
+    {
+        "ESP - EYE S3",
+        "espeyes3",
+        11, 9, 8, 10, 12, 18, 17, 16,
+        15, 13, 6, 7, 4, 5, -1, -1
+    },
+    {
+        "WROVER",
+        "wrover",
+        4, 5, 18, 19, 36, 39, 34, 35,
+        21, 22, 25, 23, 26, 27, -1, -1
+    },
+    {
+        "WROOM S3",
+        "wrooms3",
+        11, 9, 8, 10, 12, 18, 17, 16,
+        15, 13, 6, 7, 4, 5, -1, -1
+    },
+    {
+        "TTGO Plus",
+        "ttgoplus",
+        34, 13, 26, 35, 39, 38, 37, 36,
+        4, 25, 5, 27, 18, 23, -1, -1
+    },
+    {
+        "TTGO PIR",
+        "ttgopir",
+        5, 14, 4, 15, 18, 23, 36, 39,
+        32, 19, 27, 25, 13, 12, 26, -1
+    }
 };
 
 namespace espx::camx {
+/**
+ * Camera models pin definitions
+ */
+class Model {
+public:
+    CamxModel *pinout;
+
     /**
-     * Camera models pin definitions
+     * Constructor
      */
-    class Model {
-    public:
-        CamxModel *pinout;
+    Model() : pinout(NULL) {
 
-        /**
-         * Constructor
-         */
-        Model() : pinout(NULL) {
+    }
 
-        }
+    /**
+     * Set model from const char*
+     * @param model
+     */
+    void set(const char *model) {
+        String mod(model);
 
-        /**
-         * Set model from const char*
-         * @param model
-         */
-        void set(const char *model) {
-            String mod(model);
+        set(mod);
+    }
 
-            set(mod);
-        }
+    /**
+     * Set model from string
+     * @param alias
+     */
+    void set(String& alias) {
+        for (uint8_t i = 0; i < CAMX_MODELS_COUNT; i++) {
+            const CamxModel *model = &(CAMX_MODELS[i]);
 
-        /**
-         * Set model from string
-         * @param alias
-         */
-        void set(String& alias) {
-            for (uint8_t i = 0; i < CAMX_MODELS_COUNT; i++) {
-                const CamxModel *model = &(CAMX_MODELS[i]);
-
-                if (alias == model->alias) {
-                    pinout = (CamxModel *) model;
-                    return;
-                }
+            if (alias == model->alias) {
+                pinout = (CamxModel *) model;
+                return;
             }
-
-            Serial.printf("Unknown model: %s", alias.c_str());
         }
 
-        /**
-         *
-         */
-        void prompt() {
-            String choices[CAMX_MODELS_COUNT];
+        Serial.printf("Unknown model: %s", alias.c_str());
+    }
 
-            for (uint8_t i = 0; i < CAMX_MODELS_COUNT; i++)
-                choices[i] = (&(CAMX_MODELS[i]))->name;
+    /**
+     *
+     */
+    void prompt() {
+        String choices[CAMX_MODELS_COUNT];
 
-            const int choice = promptChoice("Select a resolution", choices, CAMX_MODELS_COUNT);
-            const String alias = (&(CAMX_MODELS[choice]))->alias;
+        for (uint8_t i = 0; i < CAMX_MODELS_COUNT; i++)
+            choices[i] = (&(CAMX_MODELS[i]))->name;
 
-            remember(alias.c_str());
-        }
+        const int choice = promptChoice("Select a resolution", choices, CAMX_MODELS_COUNT);
+        const String alias = (&(CAMX_MODELS[choice]))->alias;
 
-        inline void aithinker() { set("aithinker"); }
+        remember(alias.c_str());
+    }
 
-        inline void xiao() { set("xiao"); }
+    inline void aithinker() { set("aithinker"); }
 
-        inline void wrooms3() { set("wrooms3"); }
+    inline void xiao() { set("xiao"); }
 
-        inline void ttgoplus() { set("ttgoplus"); }
+    inline void wrooms3() { set("wrooms3"); }
 
-        inline void ttgopir() { set("ttgopir"); }
+    inline void ttgoplus() { set("ttgoplus"); }
 
-        inline void m5() { set("m5"); }
+    inline void ttgopir() { set("ttgopir"); }
 
-        inline void m5fisheye() { set("m5fisheye"); }
+    inline void m5() { set("m5"); }
 
-        inline void m5timerx() { set("m5timerx"); }
+    inline void m5fisheye() { set("m5fisheye"); }
 
-        inline void espeye() { set("espeye"); }
+    inline void m5timerx() { set("m5timerx"); }
 
-        inline void espeyes3() { set("espeyes3"); }
+    inline void espeye() { set("espeye"); }
 
-        inline void wrover() { set("wrover"); }
+    inline void espeyes3() { set("espeyes3"); }
+
+    inline void wrover() { set("wrover"); }
 
     protected:
         /**
@@ -336,3 +182,4 @@ namespace espx::camx {
         }
     };
 }
+
