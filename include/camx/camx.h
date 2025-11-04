@@ -10,6 +10,7 @@
 #include "./quality.h"
 #include "./sensor.h"
 #include "./image.h"
+#include "./window.h"
 
 using espx::camx::Pixformat;
 using espx::camx::Resolution;
@@ -17,6 +18,7 @@ using espx::camx::Sensor;
 using espx::camx::Model;
 using espx::camx::Quality;
 using espx::camx::Image;
+using espx::camx::Window;
 
 /**
  * Use camera with a fluent interface
@@ -30,6 +32,7 @@ public:
     Model model;
     Quality quality;
     Sensor sensor;
+    Window window;
     Image frame;
     QueueHandle_t queue;
 
@@ -90,6 +93,11 @@ public:
         status.succeed();
 
         sensor.begin(config.frame_size);
+        
+        // Apply window/ROI settings if enabled
+        if (window.enabled && sensor.sensor != NULL) {
+            window.apply(sensor.sensor);
+        }
 
         return *this;
     }
@@ -109,9 +117,15 @@ public:
             frame.buf = fb->buf;
             frame.length = fb->len;
             frame.timestamp(fb->timestamp);
-            // don't trust the fb dimensions!
-            frame.width = resolution.width;
-            frame.height = resolution.height;
+            // If window is enabled, use output dimensions, otherwise use resolution dimensions
+            if (window.enabled) {
+                frame.width = window.outputX;
+                frame.height = window.outputY;
+            } else {
+                // don't trust the fb dimensions!
+                frame.width = resolution.width;
+                frame.height = resolution.height;
+            }
             // TODO: push frame to queue
 //            xQueueSendToFront(queue, (void *) (&frame), pdMS_TO_TICKS(10));
         }
@@ -184,6 +198,17 @@ public:
      */
     void unlock() {
         xSemaphoreGive(mutex);
+    }
+
+    /**
+     * Update window/ROI settings after initialization
+     * Call this to change window settings dynamically
+     */
+    Camx& updateWindow() {
+        if (window.enabled && sensor.sensor != NULL) {
+            window.apply(sensor.sensor);
+        }
+        return *this;
     }
 
 protected:
