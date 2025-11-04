@@ -26,6 +26,59 @@ void loop() {
 }
 ```
 
+#### Camera windowing/ROI (Region of Interest)
+
+```c++
+#include <espx.h>
+#include <espx/camx.h>
+
+void setup() {
+    camx.model.wrover();
+    camx.pixformat.jpeg();
+    camx.quality.high();
+    camx.resolution.xga();  // 1024x768
+    
+    // Configure window: crop 320x240 region from top-left corner
+    camx.window.crop(0, 0, 320, 240);
+    
+    camx.begin().raise();
+}
+
+void loop() {
+    auto frame = camx.grab();
+    
+    // Frame will be 320x240 (cropped), not 1024x768
+    Serial.printf("Frame: %dx%d, %d bytes\n", frame.width, frame.height, frame.length);
+}
+```
+
+#### Camera windowing with scaling (for ML models)
+
+```c++
+#include <espx.h>
+#include <espx/camx.h>
+
+void setup() {
+    camx.model.wrover();
+    camx.pixformat.jpeg();
+    camx.quality.high();
+    camx.resolution.xga();  // 1024x768
+    
+    // Crop and scale: capture 320x320 region, scale down to 96x96
+    // Perfect for Edge Impulse models that require 96x96 input
+    camx.window.cropAndScale(0, 0, 320, 320, 96, 96);
+    
+    camx.begin().raise();
+}
+
+void loop() {
+    auto frame = camx.grab();
+    
+    // Frame is now 96x96, ready for ML model inference
+    Serial.printf("Frame: %dx%d (scaled)\n", frame.width, frame.height);
+}
+```
+
 #### Motion detection from camera frames
 
 ```c++
