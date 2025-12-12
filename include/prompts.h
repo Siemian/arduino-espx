@@ -5,7 +5,7 @@
  * @param timeout
  * @return
  */
-bool awaitForSerial(size_t timeout = 8000) {
+inline bool awaitForSerial(size_t timeout = 8000) {
     // endless waiting
     if (!timeout) {
         while (!Serial.available())
@@ -27,7 +27,7 @@ bool awaitForSerial(size_t timeout = 8000) {
  * @param defaultValue
  * @return
  */
-int readInt(int defaultValue = -1) {
+inline int readInt(int defaultValue = -1) {
     if (!awaitForSerial())
         return defaultValue;
 
@@ -39,7 +39,7 @@ int readInt(int defaultValue = -1) {
  * @param count
  * @param c
  */
-void printDelimiter(uint8_t length, char c = '=') {
+inline void printDelimiter(uint8_t length, char c = '=') {
     for (uint8_t i = 0; i < length; i++)
         Serial.print(c);
 
@@ -52,7 +52,7 @@ void printDelimiter(uint8_t length, char c = '=') {
  * @param String
  * @return
  */
-String promptString(const String& prompt) {
+inline String promptString(const String& prompt) {
     Serial.print(prompt);
     Serial.print(": ");
 
@@ -71,7 +71,7 @@ String promptString(const String& prompt) {
 }
 
 
-uint8_t promptChoice(const String& prompt, const String *choices, uint8_t count) {
+inline uint8_t promptChoice(const String& prompt, const String *choices, uint8_t count) {
     Serial.println(prompt);
     printDelimiter(prompt.length());
 

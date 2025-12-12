@@ -47,7 +47,7 @@ public:
 /**
  * Allow the use of a std::function as a C-style function for xTaskCreatePinnedToCore
  */
-extern "C" void callTask(void *arg) {
+extern "C" inline void callTask(void *arg) {
     ThreadxTaskWrapper *wrapper = static_cast<ThreadxTaskWrapper *>(arg);
 
     wrapper->task(wrapper->userdata);
