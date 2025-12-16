@@ -1,5 +1,5 @@
 #pragma once
-#include "../math.h"
+#include "../espx_math.h"
 #include "../Str.h"
 #include "../ByteArray.h"
 #include "../Throttle.h"
